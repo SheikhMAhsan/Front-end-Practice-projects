@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Registration form</title>
+    <style>
+        a{color: white;}
+        body{background-color: #4294A4; width: 100%; height: 900px;}
+        .my-cotn{width: 950px; height: 500px; background-color: white; margin: 100px auto;}
+        .inside-container{height: 100%;}
+        .signup-box{}
+        .login-box{background-color: #0C538C; color: white;}
+        .login-box h4{margin: 50px 0 25px 0; }
+        .input ,.input{margin-bottom: 15px;};
+        .login-checkbox{margin-top: 25px;}
+        .main-form{width: 80%;margin: 50px auto;}
+        
+        
+    </style>
+</head>
+<body>
+    <div class="my-cotn">
+        <div class="row inside-container">
+            <div class="signup-box col-md-8">
+                <div class="container">
+                    <div class="main-form">
+                    
+                        <h4 class="text-center" style="margin-bottom: 25px;">Registration</h4>
+                        <!--<form action="">-->
+                         <input type="text" placeholder="Your Name" class="form-control input" required id="name">
+                        <input type="email" placeholder="Your Email" class="form-control input" required id="email">
+                        <input type="password" placeholder="Password" class="form-control input" required id="password">
+                        <input type="password" placeholder="Confirm Password" class="form-control input" required id="con_password">
+                        <br>
+                        <button  class="btn btn-danger"  onclick="register()">Sign up</button>
+                       <!-- </form>-->
+                    </div>
+                </div>
+            </div>
+            <div class="login-box col-md-4">
+                <div class="container">
+                    <h4 class="text-center">LOGIN</h4>
+                    <input type="text" class="form-control input" placeholder="Username" id="dbname" required>
+                    <input type="password" class="form-control input" placeholder="password" id="dbpassword" required>
+                    
+                    <div class="custom-control custom-checkbox login-checkbox" style="text-align: center;">
+                        <input type="checkbox" id="radio" class="custom-control-input">
+                        <label for="radio" class="custom-control-label">Remember me.</label>
+                    </div>
+                    <br> 
+                    <div class="row mt-10">
+                        <div class="col-md-7">
+                            <a href="" class="link">Forgot Password ?</a>
+                        </div>
+                        <div class="col-md-5">
+                            <button class="btn btn-danger" onclick="login()">Sign in</button>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    
+                    <div id="login_badge" class="badge badge-danger" style="font-size: 15px;"></div>
+                    
+                </div>
+                
+            </div>
+
+        </div>
+    
+    </div>
+
+
+    <script>
+        var database = [{username: "ahsan", email: "ahsan@gmail.com", password: "12345", confirm_password: "12345abc"},{username: "ahmed", email: "ahmed112@gmail.com", password: "9ab876z5", confirm_password: "9ab876z5"}];
+
+        // console.log(database[0].password);
+        
+
+        //Registration//
+
+        function register(){
+            var username = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirm_password = document.getElementById("con_password").value;
+
+            if (username !== "" && email !== ""  && password !== '' && confirm_password !== ""){
+                if(password !== confirm_password){
+                    alert("Password didn't matched");
+                }
+                else{
+                    database.push({username, email, password, confirm_password});
+                    console.log(database);
+                    alert("Congratulations! You're registered.")
+                }
+                
+            }
+            else{
+                alert("Please fill the form correctly.");
+            }
+
+            
+            // console.log(database);
+        }
+
+        var login_badge = document.getElementById("login_badge");
+
+        //LOGIN//
+
+        function login(){
+            var dbname = document.getElementById("dbname").value;
+            var dbpassword = document.getElementById("dbpassword").value;
+
+            var match = false;
+
+            
+            
+            if (dbname !== "" && dbpassword !== ""){
+                for(var i = 0; i <database.length; i++){
+                    if(dbname == database[i].username && dbpassword == database[i].password){
+                         console.log("matched");
+                         match = true;
+                         
+                         alert("You're logged in successfully, and that's the end :)")
+                         
+                    }
+  
+                }
+                if(match !== true){
+                    login_badge.innerText = "Incorrect";
+                }
+                  
+            }
+            else{
+                login_badge.innerText = "Please enter correct credentials";
+            }
+            
+        }
+        
+    </script>
+</body>
+</html>
